@@ -168,7 +168,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     });
   
-    ctx.fillStyle = "#00ADB5"; // Food color from secondary
+    ctx.fillStyle = "#FF2C2C"; // Food color from secondary
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
   }
   

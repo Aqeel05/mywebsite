@@ -170,16 +170,18 @@
   
   .project-card {
     background: var(--light-color);
+    border: 1px solid transparent;
     border-radius: 10px;
     padding: 1.5rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     color: var(--dark-color);
   }
   
   .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-color: var(--primary-color); /* Light up the border */
+    box-shadow: 0 10px 25px rgba(100, 255, 218, 0.5); /* Glowing shadow effect */
   }
   
   .tech-stack {
@@ -190,7 +192,7 @@
   }
   
   .tech-stack span {
-    background: rgba(100, 255, 218, 0.1);
+    background: rgba(21, 116, 94, 0.658);
     color: var(--primary-color);
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
@@ -304,4 +306,18 @@
   .animate-fade {
     animation: fadeIn 2s ease-in;
   }
+
+  .social-icons {
+    margin-top: 1rem;
+  }
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+  }
+  .social-icons a:hover {
+    color: var(--secondary-color);
+  }
+  
   

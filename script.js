@@ -14,9 +14,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 100) {
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.15)';
+      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.5)';
     } else {
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
     }
   });
   
@@ -27,9 +27,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       title: 'Thank You!',
       text: 'Your message has been sent successfully.',
       icon: 'success',
-      background: '#fff',
-      color: '#222',
-      confirmButtonColor: '#1a73e8',
+      background: '#0A192F',
+      color: '#CCD6F6',
+      confirmButtonColor: '#64FFDA',
       confirmButtonText: 'Close'
     });
   });
@@ -159,15 +159,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   
   // Render the game state to the canvas
   function draw() {
-    ctx.fillStyle = "#fff";
+    const darkColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-color').trim();
+    ctx.fillStyle = darkColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-    ctx.fillStyle = "#1a73e8";
+    ctx.fillStyle = "#64FFDA"; // Snake color from primary
     snake.forEach(segment => {
       ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     });
   
-    ctx.fillStyle = "#4285f4";
+    ctx.fillStyle = "#00ADB5"; // Food color from secondary
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
   }
   

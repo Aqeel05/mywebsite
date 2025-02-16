@@ -14,24 +14,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 100) {
-      navbar.style.background = 'rgba(10, 25, 47, 0.95)';
-      navbar.style.padding = '0.8rem 0';
+      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.15)';
     } else {
-      navbar.style.background = 'rgba(10, 25, 47, 0.9)';
-      navbar.style.padding = '1rem 0';
+      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
   });
   
-  // Use SweetAlert to display a thank you message when the contact form is submitted
+  // Custom SweetAlert for the contact form submission
   document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
     Swal.fire({
       title: 'Thank You!',
       text: 'Your message has been sent successfully.',
       icon: 'success',
+      background: '#fff',
+      color: '#222',
+      confirmButtonColor: '#1a73e8',
       confirmButtonText: 'Close'
     });
   });
+  
+  // WASD key activation helper functions
+  function activateKey(key) {
+    const el = document.getElementById(`key-${key}`);
+    if (el) {
+      el.classList.add('active');
+    }
+  }
+  
+  function deactivateKey(key) {
+    const el = document.getElementById(`key-${key}`);
+    if (el) {
+      el.classList.remove('active');
+    }
+  }
   
   // Snake game demo
   const canvas = document.getElementById("snakeCanvas");
@@ -53,21 +69,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   let gameInterval = 100; // milliseconds per frame
   let lastTime = 0;
   
-  // Listen for arrow key input
+  // Listen for WASD key input
   window.addEventListener("keydown", (e) => {
-    switch (e.key) {
-      case "ArrowUp":
+    const key = e.key.toLowerCase();
+    switch (key) {
+      case "w":
         if (snakeDir.y !== 1) snakeDir = { x: 0, y: -1 };
+        activateKey("w");
         break;
-      case "ArrowDown":
-        if (snakeDir.y !== -1) snakeDir = { x: 0, y: 1 };
-        break;
-      case "ArrowLeft":
+      case "a":
         if (snakeDir.x !== 1) snakeDir = { x: -1, y: 0 };
+        activateKey("a");
         break;
-      case "ArrowRight":
+      case "s":
+        if (snakeDir.y !== -1) snakeDir = { x: 0, y: 1 };
+        activateKey("s");
+        break;
+      case "d":
         if (snakeDir.x !== -1) snakeDir = { x: 1, y: 0 };
+        activateKey("d");
         break;
+    }
+  });
+  
+  // Remove active state on keyup
+  window.addEventListener("keyup", (e) => {
+    const key = e.key.toLowerCase();
+    if(["w", "a", "s", "d"].includes(key)) {
+      deactivateKey(key);
     }
   });
   
@@ -96,7 +125,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     // Check for collision with self
     for (let segment of snake) {
       if (head.x === segment.x && head.y === segment.y) {
-        // Reset game on collision
         snake = [{ x: 10, y: 10 }];
         snakeDir = { x: 0, y: 0 };
         snakeLength = 5;
@@ -116,7 +144,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   }
   
-  // Place food randomly not occupied by snake
+  // Place food in a random cell not occupied by the snake
   function placeFood() {
     food.x = Math.floor(Math.random() * tileCount);
     food.y = Math.floor(Math.random() * tileCount);
@@ -129,17 +157,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   }
   
-  // Render game state
+  // Render the game state to the canvas
   function draw() {
-    ctx.fillStyle = "#0A192F";
+    ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-    ctx.fillStyle = "#64FFDA";
+    ctx.fillStyle = "#1a73e8";
     snake.forEach(segment => {
       ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     });
   
-    ctx.fillStyle = "#00ADB5";
+    ctx.fillStyle = "#4285f4";
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
   }
   
